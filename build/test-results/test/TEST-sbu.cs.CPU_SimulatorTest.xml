@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="sbu.cs.CPU_SimulatorTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2023-05-01T19:25:33" hostname="DESKTOP-5GGMFI7" time="1.549">
+  <properties/>
+  <testcase name="testThree()" classname="sbu.cs.CPU_SimulatorTest" time="1.549"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

@@ -1,42 +1,55 @@
 package sbu.cs;
 
-/*
-    In this exercise, you must write a multithreaded program that finds all
-    integers in the range [1, n] that are divisible by 3, 5, or 7. Return the
-    sum of all unique integers as your answer.
-    Note that an integer such as 15 (which is a multiple of 3 and 5) is only
-    counted once.
-
-    The Positive integer n > 0 is given to you as input. Create as many threads as
-    you need to solve the problem. You can use a Thread Pool for bonus points.
-
-    Example:
-    Input: n = 10
-    Output: sum = 40
-    Explanation: Numbers in the range [1, 10] that are divisible by 3, 5, or 7 are:
-    3, 5, 6, 7, 9, 10. The sum of these numbers is 40.
-
-    Use the tests provided in the test folder to ensure your code works correctly.
- */
+import java.util.HashSet;
+import java.util.Scanner;
+import java.util.Set;
 
 public class FindMultiples
 {
-
-    // TODO create the required multithreading class/classes using your preferred method.
-
-
-    /*
-    The getSum function should be called at the start of your program.
-    New Threads and tasks should be created here.
-    */
-    public int getSum(int n) {
-        int sum = 0;
-
-        // TODO
-
+    public long getSum(int n) {
+        long sum = 0;
+        Set<Long> ans=new HashSet<>();
+        Thread[] threads=new Thread[3];
+        for (int i=0;i<3;i++){
+            threads[i]=new Thread(new findAnswer(n,ans,i*2+3));
+            threads[i].start();
+        }
+        try {
+            for (int i=0;i<3;i++){
+                threads[i].join();
+            }
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        for (long i:ans){
+            sum+=i;
+        }
         return sum;
+    }
+    private static class findAnswer implements Runnable{
+        private final int n;
+        private Set<Long>ans=new HashSet<>();
+        private final int x;
+        public findAnswer(int n, Set<Long> ans, int x) {
+            this.n = n;
+            this.ans = ans;
+            this.x = x;
+        }
+        @Override
+        public synchronized void run() {
+            for(long i=1;i<=n;i++){
+                if(i%x==0){
+                    ans.add(i);
+                }
+            }
+        }
     }
 
     public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        int n=in.nextInt();
+        FindMultiples A=new FindMultiples();
+        System.out.println(A.getSum(n));
     }
 }

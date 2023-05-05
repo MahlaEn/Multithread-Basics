@@ -56,7 +56,19 @@ public class UseInterrupts {
     public static void main(String[] args) {
         SleepThread sleepThread = new SleepThread(5);
         sleepThread.start();
+        try{
+            sleepThread.join(3000);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
         LoopThread loopThread = new LoopThread(3);
         loopThread.start();
+        try{
+            loopThread.join(3000);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
     }
 }

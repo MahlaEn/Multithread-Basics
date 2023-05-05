@@ -27,17 +27,17 @@ public class FindMultiples
         }
         return sum;
     }
-    private static class findAnswer implements Runnable{
-        private final int n;
+    private class findAnswer implements Runnable{
+        private int n;
         private Set<Long>ans=new HashSet<>();
-        private final int x;
+        private int x;
         public findAnswer(int n, Set<Long> ans, int x) {
             this.n = n;
             this.ans = ans;
             this.x = x;
         }
         @Override
-        public synchronized void run() {
+        public void run() {
             for(long i=1;i<=n;i++){
                 if(i%x==0){
                     ans.add(i);
